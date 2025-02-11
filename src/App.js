@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import './App.css';
 import TodoForm from './Components/Todo/TodoForm';
-import TodoList from './Components/Todo/TodoList';
+import TodoList from './Components/Todo/TodoList'; 
 
 function App() {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
+  };
+
+  const editTodo = (index, newValue) => {
+    const updatedTodos = todos.map((todo, i) =>
+      i === index ? newValue : todo
+    );
+    setTodos(updatedTodos);
   };
 
   const deleteTodo = (index) => {
@@ -18,7 +25,7 @@ function App() {
     <div className="App">
       <h1>Advanced To-Do App</h1>
       <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} deleteTodo={deleteTodo} />
+      <TodoList todos={todos} editTodo={editTodo} deleteTodo={deleteTodo} />
     </div>
   );
 }

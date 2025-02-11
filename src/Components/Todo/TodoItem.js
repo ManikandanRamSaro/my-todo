@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const TodoItem = ({ todo, deleteTodo }) => {
+const TodoItem = ({ todo, index, editTodo, deleteTodo }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editValue, setEditValue] = useState(todo);
+
+  const handleEditChange = (e) => {
+    setEditValue(e.target.value);
+  };
+
+  const handleEditSubmit = () => {
+    editTodo(index, editValue);
+    setIsEditing(false);
+  };
+
   return (
     <li>
-      {todo} <button onClick={deleteTodo}>Delete</button>
+      {isEditing ? (
+        <div>
+          <input
+            type="text"
+            value={editValue}
+            onChange={handleEditChange}
+          />
+          <button onClick={handleEditSubmit}>Save</button>
+          <button onClick={() => setIsEditing(false)}>Cancel</button>
+        </div>
+      ) : (
+        <div>
+          {todo} <button onClick={() => setIsEditing(true)}>Edit</button>
+          <button onClick={() => deleteTodo(index)}>Delete</button>
+        </div>
+      )}
     </li>
   );
 };
