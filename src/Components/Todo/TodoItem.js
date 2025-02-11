@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const TodoItem = ({ todo, index, editTodo, deleteTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(todo);
+  const [editValue, setEditValue] = useState(todo.task);
 
   const handleEditChange = (e) => {
     setEditValue(e.target.value);
@@ -27,7 +27,7 @@ const TodoItem = ({ todo, index, editTodo, deleteTodo }) => {
         </div>
       ) : (
         <div>
-          {todo} <button onClick={() => setIsEditing(true)}>Edit</button>
+          {todo.task} <button onClick={() => setIsEditing(true)}>Edit</button>
           <button onClick={() => deleteTodo(index)}>Delete</button>
         </div>
       )}
